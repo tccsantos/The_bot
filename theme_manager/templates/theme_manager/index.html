@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Gerenciador de Temas
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'theme_manager/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Temas</h1>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'theme_manager/js/app.js' %}"></script>
+{% endblock %}
