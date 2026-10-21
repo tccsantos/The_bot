@@ -25,9 +25,9 @@
                <td>Não</td>
                {%  endif %}
                {% if theme.available %}
-               <td>Sim</td>
-               {% else %}
                <td>Não</td>
+               {% else %}
+               <td>Sim</td>
                {%  endif %}
                <td>
                     <a href="{% url 'theme_show' theme.id%}" class="btn btn-info">Visualizar</a>

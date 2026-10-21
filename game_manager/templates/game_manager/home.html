@@ -1,0 +1,44 @@
+{% extends "game_manager/layout.html" %}
+
+{% block title %} The Bot {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Bem-vindo ao Bot, Django version</h1>
+
+    <h3 class="mb-3">Temas atuais</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mês/Ano</th>
+                    <th>Tema vencedor</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in eventos_periodos %}
+                    <tr>
+                        <td>{{ item.mes|stringformat:"02d" }}/{{ item.ano }}</td>
+                        <td>
+                            {% if item.evento %}
+                                {{ item.evento.theme }}
+                            {% else %}
+                                <span class="text-muted">
+                                    Nenhum tema no histórico
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-3">
+        <a href="{% url 'game_history' %}" class="btn btn-primary">
+            Ver histórico completo
+        </a>
+    </div>
+</div>
+{% endblock %}

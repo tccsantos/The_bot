@@ -1,0 +1,165 @@
+{% extends "game_manager/layout.html" %}
+
+{% block title %}
+  Configurações iniciais
+{% endblock %}
+
+{% block content %}
+<div class="py-4">
+
+  <div class="text-center mb-4">
+    <h1>Configurações iniciais</h1>
+  </div>
+
+  <!-- Eventos -->
+  <div class="row mb-4">
+
+    <!-- Evento atual -->
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          Tema atual
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ mes_atual|stringformat:"02d" }}/{{ ano_atual }}
+          </h5>
+
+          {% if evento_atual %}
+            <p class="mb-2">
+              <strong>Tema escolhido:</strong>
+              {{ evento_atual.theme }}
+            </p>
+          {% else %}
+            <p class="text-muted mb-0">
+              Nenhum tema foi escolhido o mês atual.
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Próximo evento -->
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-header bg-info text-white">
+          Tema seguinte
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ mes_seguinte|stringformat:"02d" }}/{{ ano_seguinte }}
+          </h5>
+
+          {% if evento_seguinte %}
+            <p class="mb-2">
+              <strong>Tema escolhido:</strong>
+              {{ evento_seguinte.theme }}
+            </p>
+
+          {% else %}
+            <p class="text-muted mb-0">
+              Nenhum tema foi escolhido para o mês seguinte.
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Configuração do jogo -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Preferências do jogo</h5>
+        </div>
+
+        <div class="card-body">
+
+          <form method="post" action="{% url 'pre_game' %}">
+            {% csrf_token %}
+
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                <strong>Não foi possível iniciar a partida.</strong>
+                <ul class="mb-0">
+                  {% for field in form %}
+                    {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            <div class="form-group">
+              <label for="{{ form.padoru.id_for_label }}">
+                {{ form.padoru.label }}
+              </label>
+
+              {{ form.padoru }}
+
+              {% for error in form.padoru.errors %}
+                <small class="form-text text-danger">{{ error }}</small>
+              {% endfor %}
+            </div>
+
+            <div class="form-group">
+              <label for="{{ form.available.id_for_label }}">
+                {{ form.available.label }}
+              </label>
+
+              {{ form.available }}
+
+              {% for error in form.available.errors %}
+                <small class="form-text text-danger">{{ error }}</small>
+              {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.event_date.label }}</label>
+
+                {% for choice in form.event_date %}
+                    <div class="form-check mb-2">
+                    {{ choice.tag }}
+                    <label class="form-check-label" for="{{ choice.id_for_label }}">
+                        {{ choice.choice_label }}
+                    </label>
+                    </div>
+                {% endfor %}
+
+                {% for error in form.event_date.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+                </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'home' %}"
+                 class="btn btn-outline-secondary">
+                Voltar
+              </a>
+
+              <button type="submit" class="btn btn-primary">
+                Iniciar partida
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

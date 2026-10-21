@@ -10,7 +10,7 @@ class ThemeForm(forms.ModelForm):
             'name': "Nome",
             'user': "Usuários",
             'is_padoru': "Tem Padoru?",
-            'available': "Já foi escolhido?"
+            'available': "Está disponível?"
         }
         widgets = {
             'name': forms.TextInput(attrs={

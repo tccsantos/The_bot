@@ -1,0 +1,143 @@
+{% extends "game_manager/layout.html" %}
+{% load static %}
+
+{% block title %}
+  The Bot
+{% endblock %}
+
+{% block content %}
+<div class="py-4">
+
+    <div class="text-center mb-4">
+        <h1>The Bot</h1>
+        <p class="text-muted">
+        {{ month|stringformat:"02d" }}/{{ year }}
+        </p>
+    </div>
+
+    <!-- Temas fornecidos pelo Django -->
+    <ul id="theme-source" class="d-none">
+        {% for theme in themes %}
+            <li data-id="{{ theme.pk }}">{{ theme }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Configuração inicial -->
+    <div id="setup" class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Preparar torneio</h5>
+        </div>
+
+        <div class="card-body">
+            <p>
+                <strong>Temas participantes:</strong>
+                <span id="theme-count">0</span>
+            </p>
+
+            <div class="form-group">
+                <label for="round-count">Número de rodadas</label>
+                <input
+                    type="number"
+                    id="round-count"
+                    class="form-control"
+                    min="1"
+                    max="20"
+                    value="3"
+                    >
+                <small class="form-text text-muted">
+                O torneio termina quando chegar à última rodada
+                ou restarem menos de três competidores.
+                </small>
+            </div>
+
+            <button id="start-game" class="btn btn-primary btn-block">
+                Iniciar torneio
+            </button>
+
+            <div id="setup-error" class="alert alert-danger mt-3 d-none"></div>
+        </div>
+    </div>
+
+  <!-- Área do torneio -->
+  <div id="tournament" class="d-none">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 id="round-title" class="mb-0">Rodada 1</h4>
+      <span id="competitor-count" class="badge badge-primary">
+        0 competidores
+      </span>
+    </div>
+
+    <div id="round-status" class="alert alert-info">
+      Prepare-se para a rodada!
+    </div>
+
+    <div id="round-results" class="card shadow-sm mb-3 d-none">
+      <div class="card-header">
+        Classificação da rodada
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <div style="max-height: 400px; overflow-y: auto;">
+            <table class="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tema</th>
+                  <th class="text-right">Pontos</th>
+                </tr>
+              </thead>
+              <tbody id="scoreboard"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="round-actions" class="text-center mb-4">
+      <button id="play-round" class="btn btn-success btn-lg">
+        Jogar rodada
+      </button>
+    </div>
+
+    
+    <div id="winner-panel" class="card shadow-sm border-success d-none">
+        <div class="card-body text-center py-5">
+            <h2 class="mb-3">🏆 Temos um vencedor!</h2>
+            <h3 id="winner-name" class="text-success"></h3>
+            <p id="winner-description" class="text-muted mt-3"></p>
+
+            <div class="d-flex flex-wrap justify-content-center mt-4">
+
+                <!-- Reinicia o torneio sem enviar dados ao backend -->
+                <button
+                    type="button"
+                    id="restart-game"
+                    class="btn btn-outline-primary m-2">
+                    O jogo bugou... hehe
+                </button>
+
+                <!-- Envia o vencedor para o Django -->
+                <form method="post" action="{% url 'pos_game' %}" class="m-2">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="theme" id="winner-theme">
+                    <input type="hidden" name="month" value="{{ month }}">
+                    <input type="hidden" name="year" value="{{ year }}">
+
+                    <button type="submit" class="btn btn-success">
+                    Salvar vencedor
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<script src="{% static 'game_manager/js/the_game.js' %}" defer></script>
+{% endblock %}
