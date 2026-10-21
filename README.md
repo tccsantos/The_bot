@@ -8,11 +8,14 @@ The website is not public to anyone to use it, I setted in my home server, I am 
 - Python
 - Django
 - sqlite
+- javascript
 
 ## Features
 
 - An simple and intuitive UI
-- A Database to save all possible themes, users and preferences, with support to customization
+- A Database to save all possible themes, users and preferences
+- A history to check all themes chosen monthly
+- The game itself, a random choice among all your themes
 
 ## The Process
 
