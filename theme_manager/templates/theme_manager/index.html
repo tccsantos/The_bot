@@ -1,20 +1,41 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "theme_manager/layout.html" %}
 
-{% block title %}
-    Gerenciador de Temas
-{% endblock %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'theme_manager/css/style.css' %}">
-{% endblock %}
+{% block title %} Temas {% endblock %}
 
 {% block content %}
-
-<h1>Temas</h1>
-
-{% endblock %}
-
-{% block extra_js %}
-    <script src="{% static 'theme_manager/js/app.js' %}"></script>
+    <h1 class="text-center">Temas</h1>
+    <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Padoru</th>
+                <th>Já foi</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for theme in themes %}
+            <tr>
+               <td>{{ theme.id }}</td>
+               <td>{{ theme.name }}</td>
+               {% if theme.is_padoru %}
+               <td>Sim</td>
+               {% else %}
+               <td>Não</td>
+               {%  endif %}
+               {% if theme.available %}
+               <td>Sim</td>
+               {% else %}
+               <td>Não</td>
+               {%  endif %}
+               <td>
+                    <a href="{% url 'theme_show' theme.id%}" class="btn btn-info">Visualizar</a>
+                    <a href="{% url 'theme_update' theme.id%}" class="btn btn-warning">Atualizar</a>
+                    <a href="{% url 'theme_delete' theme.id%}" class="btn btn-danger">Deletar</a>
+               </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -17,9 +17,7 @@ class ThemeForm(forms.ModelForm):
                 'placeholder': 'Angel Beats',
                 'class': 'form-control'
             }),
-            'user': forms.CheckboxSelectMultiple(attrs={
-                'class': 'form-control'
-            }),
+            'user': forms.CheckboxSelectMultiple(),
             'is_padoru': forms.CheckboxInput(attrs={
                 'class': 'form-check-input'
             }),

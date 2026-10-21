@@ -7,6 +7,9 @@ class User(models.Model):
     name = models.CharField(max_length=256)
     nickname = models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.nickname
+
 
 class Theme(models.Model):
     name = models.CharField(max_length=256)

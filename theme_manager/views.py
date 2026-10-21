@@ -16,32 +16,38 @@ def create_theme(request):
 
         if form.is_valid():
             form.save()
-            return redirect('theme_list')
+            return redirect('theme_home')
     else:
         form = ThemeForm()
 
-    return render(request, 'theme_form.html', {
+    return render(request, 'theme_manager/theme_form.html', {
         'form': form
     })
 
 # Show details of a theme
 def show_theme(request, theme_id):
     theme = get_object_or_404(Theme, id=theme_id)
-    return render(request, "theme_manager/show_theme.html", {"theme": theme})
+    return render(request, "theme_manager/theme_show.html", {"theme": theme})
+
+# Update a theme
 
 # Update a theme
 def update_theme(request, theme_id):
     theme = get_object_or_404(Theme, id=theme_id)
-    form = ThemeForm(request.POST, instance=theme)
+
     if request.method == 'POST':
+        form = ThemeForm(request.POST, instance=theme)
 
         if form.is_valid():
             form.save()
-            return redirect('theme_list')
+            return redirect('theme_home')
+    else:
+        form = ThemeForm(instance=theme)
 
     return render(request, 'theme_manager/theme_form.html', {
-        'form': form
+        'form': form,
     })
+
 
 # Asks confirmation and delete a theme
 def delete_theme(request, theme_id):
@@ -50,7 +56,7 @@ def delete_theme(request, theme_id):
         theme.delete()
         return redirect('theme_list')
 
-    return render(request, 'theme_manager/theme_deletion.html', {
+    return render(request, 'theme_manager/theme_delete.html', {
         'theme': theme
     })
 
