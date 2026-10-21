@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'theme_manager.apps.ThemeManagerConfig',
+    'user_manager.apps.UserManagerConfig',
+    'game_manager.apps.GameManagerConfig',
 ]
 
 MIDDLEWARE = [
