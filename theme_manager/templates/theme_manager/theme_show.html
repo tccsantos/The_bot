@@ -21,13 +21,15 @@
                     <h5>Usuários</h5>
 
                     {% if theme.user.exists %}
-                        <ul class="list-group mb-4">
-                            {% for user in theme.user.all %}
-                                <li class="list-group-item">
-                                    {{ user }}
-                                </li>
-                            {% endfor %}
-                        </ul>
+                        <div class="mb-3" style="max-height: 200px; overflow-y: auto;">
+                            <ul class="list-group mb-4">
+                                {% for user in theme.user.all %}
+                                    <li class="list-group-item">
+                                        {{ user }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     {% else %}
                         <p class="text-muted">Nenhum usuário associado.</p>
                     {% endif %}

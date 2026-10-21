@@ -1,0 +1,52 @@
+{% extends "user_manager/layout.html" %}
+
+{% block title %}Visualizar Usuário{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h1 class="h3 mb-0">Detalhes do Usuário</h1>
+                </div>
+
+                <div class="card-body">
+                    <h2 class="mb-4">{{ user.name }}</h2>
+                    
+                    <h4 class="mb-4">{{ user.nickname }}</h4>
+                    
+                    <hr>
+
+                    <h5>Temas</h5>
+
+                    {% if user.theme_set.exists %}
+                        <div class="mb-3" style="max-height: 200px; overflow-y: auto;">
+                            <ul class="list-group mb-4">
+                                {% for theme in user.theme_set.all %}
+                                    <li class="list-group-item">
+                                        {{ theme }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Nenhum tema associado.</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer d-flex gap-2">
+                    <a href="{% url 'user_home' %}"
+                       class="btn btn-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

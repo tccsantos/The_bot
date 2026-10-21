@@ -1,0 +1,31 @@
+{% extends "user_manager/layout.html" %}
+
+{% block title %} Usuários {% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Usuários</h1>
+    <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Nickname</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+               <td>{{ user.id }}</td>
+               <td>{{ user.name }}</td>
+               <td>{{ user.nickname }}</td>
+               <td>
+                    <a href="{% url 'user_show' user.id%}" class="btn btn-info">Visualizar</a>
+                    <a href="{% url 'user_update' user.id%}" class="btn btn-warning">Atualizar</a>
+                    <a href="{% url 'user_delete' user.id%}" class="btn btn-danger">Deletar</a>
+               </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

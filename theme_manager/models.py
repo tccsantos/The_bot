@@ -16,3 +16,6 @@ class Theme(models.Model):
     user = models.ManyToManyField(User)
     is_padoru = models.BooleanField(default=False)
     available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name

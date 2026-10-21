@@ -1,0 +1,14 @@
+{% extends "user_manager/layout.html" %}
+
+{% block title %} Deletar Usuário {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center"> Tem certeza que quer deletar {{ user.name }}?</h1>
+<form method="post" class="text-center">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sim</button>
+    <a href="{% url 'user_home' %}" class="btn btn-secondary">Não</a>
+</form>
+
+{% endblock content %}

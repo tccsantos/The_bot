@@ -30,8 +30,6 @@ def show_theme(request, theme_id):
     return render(request, "theme_manager/theme_show.html", {"theme": theme})
 
 # Update a theme
-
-# Update a theme
 def update_theme(request, theme_id):
     theme = get_object_or_404(Theme, id=theme_id)
 
@@ -47,7 +45,6 @@ def update_theme(request, theme_id):
     return render(request, 'theme_manager/theme_form.html', {
         'form': form,
     })
-
 
 # Asks confirmation and delete a theme
 def delete_theme(request, theme_id):
